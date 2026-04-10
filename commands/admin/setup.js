@@ -3,7 +3,7 @@ const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('disco
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('setup')
-		.setDescription('Create fun channels for the community')
+		.setDescription('BUILD THE ENTIRE SERVER INFRASTRUCTURE!')
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 	async execute(interaction) {
 		const guild = interaction.guild;
@@ -11,27 +11,7 @@ module.exports = {
 		await interaction.deferReply({ ephemeral: true });
 
 		try {
-			const category = await guild.channels.create({
-				name: '✨ MULTIFANDOM MAYHEM',
-				type: ChannelType.GuildCategory,
-			});
-
-			const channels = [
-				{ name: '🎨-fan-art', topic: 'Show off your creative work here!' },
-				{ name: '🔮-theories', topic: 'Discuss your theories and spoilers.' },
-				{ name: '🎮-gaming-lounge', topic: 'Talk about games and find teammates.' },
-				{ name: '📚-general-fandom', topic: 'Discuss any fandom here!' },
-			];
-
-			for (const channelData of channels) {
-				await guild.channels.create({
-					name: channelData.name,
-					type: ChannelType.GuildText,
-					parent: category.id,
-					topic: channelData.topic,
-				});
-			}
-
+			// 1. Roles to Create
 			const rolesToCreate = [
 				{ name: 'Marvel', color: 0xED1D24 },
 				{ name: 'DC Comics', color: 0x0047AB },
@@ -51,10 +31,104 @@ module.exports = {
 				}
 			}
 
-			await interaction.editReply({ content: '✅ Fun channels and fandom roles have been successfully created!' });
+			// 2. Categories and Channels
+			const structure = [
+				{
+					name: '📢 IMPORTANT',
+					channels: [
+						{ name: '📌-rules', topic: 'Official community rules.' },
+						{ name: '📣-announcements', topic: 'Main updates from staff.' },
+						{ name: '🎁-giveaways', topic: 'Win cool prizes!' },
+						{ name: '🎖️-get-roles', topic: 'Get your fandom roles here.' },
+					]
+				},
+				{
+					name: '💬 COMMUNITY',
+					channels: [
+						{ name: '🏠-general', topic: 'Main chat for everyone.' },
+						{ name: '📸-media', topic: 'Share your photos and videos.' },
+						{ name: '🤖-bot-commands', topic: 'Use bot commands here.' },
+						{ name: '😂-memes', topic: 'Dank memes only.' },
+					]
+				},
+				{
+					name: '🤖 MULTIFANDOM GAMES',
+					channels: [
+						{ name: '🧠-trivia-room', topic: 'Play the /trivia game here!' },
+						{ name: '🕵️-character-guess', topic: 'Play the /character game here!' },
+						{ name: '🎲-roll-here', topic: 'Feeling lucky? /roll' },
+					]
+				},
+				{
+					name: '🎌 ANIME & MANGA',
+					channels: [
+						{ name: '🍜-anime-chat', topic: 'Discuss your favorite shows.' },
+						{ name: '📖-manga-leaks', topic: 'Spoilers and new chapters.' },
+						{ name: '🔊 Anime Lounge', type: ChannelType.GuildVoice },
+					]
+				},
+				{
+					name: '🦸 HEROES & COMICS',
+					channels: [
+						{ name: '🛡️-marvel-dc', topic: 'Superheroes and comics discussion.' },
+						{ name: '🔮-theory-crafting', topic: 'Theories about the MCU/DCU.' },
+						{ name: '🔊 Hero Lounge', type: ChannelType.GuildVoice },
+					]
+				},
+				{
+					name: '🎮 GAMING ZONE',
+					channels: [
+						{ name: '🕹️-game-news', topic: 'Latest trailers and updates.' },
+						{ name: '🤝-find-group', topic: 'Find teammates for your games.' },
+						{ name: '🔊 Gaming VC', type: ChannelType.GuildVoice },
+					]
+				},
+				{
+					name: '🎙️ VOICE LOUNGE',
+					channels: [
+						{ name: '🔊 General VC 1', type: ChannelType.GuildVoice },
+						{ name: '🔊 General VC 2', type: ChannelType.GuildVoice },
+						{ name: '🎵 Music Room', type: ChannelType.GuildVoice },
+						{ name: '💤 AFK Channel', type: ChannelType.GuildVoice },
+					]
+				},
+				{
+					name: '🛡️ STAFF ONLY',
+					private: true,
+					channels: [
+						{ name: '🔒-staff-chat', topic: 'Private chat for staff.' },
+						{ name: '📜-admin-logs', topic: 'Bot and moderation logs.' },
+						{ name: '🔊 Staff Meeting', type: ChannelType.GuildVoice },
+					]
+				}
+			];
+
+			for (const catData of structure) {
+				const category = await guild.channels.create({
+					name: catData.name,
+					type: ChannelType.GuildCategory,
+					permissionOverwrites: catData.private ? [
+						{
+							id: guild.id, // @everyone
+							deny: [PermissionFlagsBits.ViewChannel],
+						},
+					] : [],
+				});
+
+				for (const chanData of catData.channels) {
+					await guild.channels.create({
+						name: chanData.name,
+						type: chanData.type || ChannelType.GuildText,
+						parent: category.id,
+						topic: chanData.topic || '',
+					});
+				}
+			}
+
+			await interaction.editReply({ content: '✅ **SUPER SETUP COMPLETE!** Your server has been fully professionalized. Enjoy your community, cuh! 🦅' });
 		} catch (error) {
 			console.error(error);
-			await interaction.editReply({ content: '❌ Fail to create channels. Make sure I have "Manage Channels" permission.' });
+			await interaction.editReply({ content: '❌ Fail to complete setup. Make sure I have "Administrator" permissions and I\'m above everything!' });
 		}
 	},
 };
