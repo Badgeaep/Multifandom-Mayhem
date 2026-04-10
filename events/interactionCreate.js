@@ -26,8 +26,10 @@ module.exports = {
 				const charMap = {
 					'char_flash': { role: 'The Flash', header: '─── DC UNIVERSE ───' },
 					'char_superman': { role: 'Superman', header: '─── DC UNIVERSE ───' },
+					'char_wonderwoman': { role: 'Wonder Woman', header: '─── DC UNIVERSE ───' },
 					'char_spiderman': { role: 'Spider-Man', header: '─── MARVEL ───' },
 					'char_ironman': { role: 'Iron Man', header: '─── MARVEL ───' },
+					'char_thor': { role: 'Thor', header: '─── MARVEL ───' },
 					'char_naruto': { role: 'Naruto', header: '─── ANIME ───' },
 					'char_goku': { role: 'Goku', header: '─── ANIME ───' },
 					'char_kratos': { role: 'Kratos', header: '─── GAMING ───' },

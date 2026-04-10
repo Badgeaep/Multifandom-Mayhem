@@ -22,8 +22,10 @@ module.exports = {
                 // Specific Character Roles
 				{ name: 'The Flash', color: 0xFF0000 },
 				{ name: 'Superman', color: 0x00A8FF },
+				{ name: 'Wonder Woman', color: 0x00A8FF },
 				{ name: 'Spider-Man', color: 0xE62429 },
 				{ name: 'Iron Man', color: 0xFFD700 },
+				{ name: 'Thor', color: 0xFFD700 },
 				{ name: 'Naruto', color: 0xFF6600 },
                 { name: 'Goku', color: 0xE67E22 },
                 { name: 'Kratos', color: 0xC0392B },

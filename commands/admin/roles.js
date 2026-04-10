@@ -14,13 +14,15 @@ module.exports = {
 		const select = new StringSelectMenuBuilder()
 			.setCustomId('fandom-roles')
 			.setPlaceholder('Pick your heroes/characters...')
-			.setMinValues(0)
+			.setMinValues(1)
 			.setMaxValues(10)
 			.addOptions(
 				new StringSelectMenuOptionBuilder().setLabel('The Flash (DC)').setValue('char_flash').setEmoji('⚡'),
 				new StringSelectMenuOptionBuilder().setLabel('Superman (DC)').setValue('char_superman').setEmoji('🦸'),
+				new StringSelectMenuOptionBuilder().setLabel('Wonder Woman (DC)').setValue('char_wonderwoman').setEmoji('👸'),
 				new StringSelectMenuOptionBuilder().setLabel('Spider-Man (Marvel)').setValue('char_spiderman').setEmoji('🕷️'),
 				new StringSelectMenuOptionBuilder().setLabel('Iron Man (Marvel)').setValue('char_ironman').setEmoji('🤖'),
+				new StringSelectMenuOptionBuilder().setLabel('Thor (Marvel)').setValue('char_thor').setEmoji('🔨'),
 				new StringSelectMenuOptionBuilder().setLabel('Naruto (Anime)').setValue('char_naruto').setEmoji('🍥'),
 				new StringSelectMenuOptionBuilder().setLabel('Goku (Anime)').setValue('char_goku').setEmoji('🐉'),
                 new StringSelectMenuOptionBuilder().setLabel('Kratos (Gaming)').setValue('char_kratos').setEmoji('🪓'),
