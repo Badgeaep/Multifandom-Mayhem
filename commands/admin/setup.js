@@ -11,13 +11,23 @@ module.exports = {
 		await interaction.deferReply({ ephemeral: true });
 
 		try {
-			// 1. Roles to Create
+			// 1. Roles to Create (Sub-roles and Separators)
 			const rolesToCreate = [
-				{ name: 'Marvel', color: 0xED1D24 },
-				{ name: 'DC Comics', color: 0x0047AB },
-				{ name: 'Anime', color: 0xFF69B4 },
-				{ name: 'Gaming', color: 0x2ECC71 },
-				{ name: 'Harry Potter', color: 0xE67E22 },
+                // Headers (Separators)
+                { name: '─── DC UNIVERSE ───', color: 0x99AAB5, hoist: true },
+                { name: '─── MARVEL ───', color: 0x99AAB5, hoist: true },
+                { name: '─── ANIME ───', color: 0x99AAB5, hoist: true },
+                { name: '─── GAMING ───', color: 0x99AAB5, hoist: true },
+                
+                // Specific Character Roles
+				{ name: 'The Flash', color: 0xFF0000 },
+				{ name: 'Superman', color: 0x00A8FF },
+				{ name: 'Spider-Man', color: 0xE62429 },
+				{ name: 'Iron Man', color: 0xFFD700 },
+				{ name: 'Naruto', color: 0xFF6600 },
+                { name: 'Goku', color: 0xE67E22 },
+                { name: 'Kratos', color: 0xC0392B },
+                { name: 'Master Chief', color: 0x27AE60 },
 			];
 
 			for (const roleData of rolesToCreate) {
@@ -25,8 +35,9 @@ module.exports = {
 				if (!existingRole) {
 					await guild.roles.create({
 						name: roleData.name,
-						color: roleData.color,
-						reason: 'Initial setup for fandom roles',
+						color: roleData.color || 0,
+                        hoist: roleData.hoist || false,
+						reason: 'Fandom expansion setup',
 					});
 				}
 			}
@@ -125,10 +136,10 @@ module.exports = {
 				}
 			}
 
-			await interaction.editReply({ content: '✅ **SUPER SETUP COMPLETE!** Your server has been fully professionalized. Enjoy your community, cuh! 🦅' });
+			await interaction.editReply({ content: '✅ **SUPER SETUP COMPLETE!** All sub-roles and categories have been created. 🦅' });
 		} catch (error) {
 			console.error(error);
-			await interaction.editReply({ content: '❌ Fail to complete setup. Make sure I have "Administrator" permissions and I\'m above everything!' });
+			await interaction.editReply({ content: '❌ Fail to complete setup. Make sure I have "Administrator" permissions.' });
 		}
 	},
 };
